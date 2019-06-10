@@ -1,3 +1,7 @@
+/***************************************************************************
+ * Change the directory in addNew() to your target directory for audio files
+ ****************************************************************************/
+
 var audio;
 
 var count = 0;
