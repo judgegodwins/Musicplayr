@@ -4,7 +4,7 @@ var count = 0;
 
 var input = document.querySelector('#fileIn');
 
-var musicArr = []
+var musicArr = [] //Array of audio file links
 
 
 
