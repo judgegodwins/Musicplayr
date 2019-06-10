@@ -4,11 +4,7 @@ var count = 0;
 
 var input = document.querySelector('#fileIn');
 
-var musicArr = [
-'C:/Users/USER/Music/Loud Luxury - Body (1).mp3',
-'C:/Users/USER/Music/Dua Lipa - Favorite Problem (CDQ) - (SongsLover.com).mp3',
-'C:/Users/USER/Music/Lil_Peep_x_XXXTentacion_-_Falling_Down_NaijaExclusive.net.mp3'
-]
+var musicArr = []
 
 
 
