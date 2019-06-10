@@ -1,0 +1,177 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+#list {
+    background-color: orange;
+    overflow-y: auto;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+}
+#player {
+    background-color: pink;
+    display: flex;
+    flex-direction: unset;
+    position: relative;
+    margin-left: 50%;
+    justify-content: center;
+    width: 50%;
+    height: 100vh;
+}
+#panel {
+    position: relative;
+    background-color: black;
+    content: "";
+    width: 80%;
+    height: 30%;
+    margin-top: 60%;
+    z-index: 3;
+    box-shadow: 2.5px 2.5px 7px 0 rgb(100,100,100);
+}
+#player #panel #controlbtns {
+    display: flex;
+    
+    margin-left: 10%;
+    margin-top: 6%;
+};
+
+#panel #nowplaying {
+    background-color: white;
+    width: 50%;
+    height: 46px;
+    z-index: 4;
+    margin-top: -1%;
+    padding-top: 0;
+}
+
+#playing {
+    margin-top: 0;
+    padding: 2%;
+    background-color: white;
+    font-family: 'Ubuntu', sans-serif;
+    height: 45px;
+}
+
+/* #playlist {
+
+} */
+
+#player #aSec {
+    
+    position: fixed;
+    z-index: 4;
+    margin-top: 0;
+    margin-left: 13vw;
+    
+    background-color: black;
+    width: 200px;
+    height: 70px;
+    box-shadow: 0 3px 6px 0 rgb(100,100,100);
+}
+::-webkit-file-upload-button {
+    background-color: red;
+    border-color: red;
+    
+}
+#fileIn {
+    color: white;
+    width: 200px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.but {
+    border-color: black;
+    margin-left: 3%;
+    height: 70px;
+    width: 70px;
+    background-color: black;
+    color: white;
+}
+
+.ic {
+    color: white;
+    font-size: 38px;
+}
+
+#listing {
+    padding: 0;
+    overflow-y: auto;
+}
+
+ul {
+    width: 100%;
+    margin: 0;
+    margin-left: 0;
+    overflow-y: auto;
+    padding-left: 0;
+}
+.songs {
+    background-color: white;
+    padding: 2% 0;
+    padding-left: 2%;
+    list-style-type: none;
+    font-family: 'Ubuntu', sans-serif;
+
+}
+.songs:hover {
+    background-color: rgb(200, 200, 200);
+    box-shadow: 0 3px 4px 0 rgb(100, 100, 100);
+    cursor: pointer;
+}
+#alert {
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 32%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    z-index: 15;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: white;
+    transition: 0.3s ease-out;
+    box-shadow: 0 3px 5px 0.7px rgb(100, 100, 100);
+}
+
+#alert::before {
+    filter: opacity(70%) brightness(40%);
+
+}
+#alert h5 {
+    
+    font-family: 'Montserrat', sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    margin-top: 5%;
+    /* margin-left: %; */
+    font-weight: 100;
+    
+}
+#ok {
+    width: 40px;
+    margin-left: 40%;
+    height: 35px;
+    padding-left: 9px;
+    
+}
+#add {
+    border-radius: 0;
+}
+
+
