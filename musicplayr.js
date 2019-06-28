@@ -8,8 +8,11 @@ var count = 0;
 
 var input = document.querySelector('#fileIn');
 
-var musicArr = [] //Array of audio file links
-
+var musicArr = [
+    'C:/Users/USER/Music/15. XXXTENTACION & Lil Pump - Arms Around You (feat. Maluma & Swae Lee) - (SongsLover.com).mp3',
+    'C:/Users/USER/Music/Dua Lipa - Favorite Problem (CDQ) - (SongsLover.com).mp3',
+    'C:/Users/USER/Music/Dynoro_and_Gigi_D_Agostino_-_In_My_Mind_.mp3'
+] //Array of audio file links
 
 
 function play() {
@@ -59,6 +62,8 @@ function previous() {
 function showP() {
 
     $('#playing').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
+    $('#playing2').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
+
 }
 
 
@@ -110,17 +115,30 @@ function addListener() {
 }
 addListener();
 
+function cut(str) {
+    var m, fm;
+    m = str.substring(str.lastIndexOf('/')+1);
+    fm = m.replace(/%20/gi, ' ');
+    return fm;
+}
 
 function addNew() {
-    var file, m, fm;
+    var file, s;
+    
     if(input.files.length >= 1) {
+        
         for(let i = 0; i < input.files.length; i++) {
             file = 'C:/Users/USER/Music/'+ input.files[i]['name'];
-            
-            musicArr.push(file);
-            m = file.substring(file.lastIndexOf('/')+1);
-            fm = m.replace(/[%20]/gi, ' ');
-            $('ul').append(`<li class="songs">${fm}</li>`);
+            console.log(musicArr.indexOf(file));
+            if(musicArr.indexOf(file) < 0) {
+
+                musicArr.push(file);
+                s = cut(file);
+                $('ul').append(`<li class="songs">${s}</li>`);
+            } else {
+                alert(`${cut(file)} is already in playlist!`)
+            }
+
             
         }
         addListener();
@@ -195,6 +213,6 @@ document.addEventListener('keydown', (e) => {
         iconCheck();
     }
     
-})
+});
 
 setInterval(playAuto, 1000);

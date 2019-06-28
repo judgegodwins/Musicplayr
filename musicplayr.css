@@ -36,16 +36,42 @@ body {
     z-index: 3;
     box-shadow: 2.5px 2.5px 7px 0 rgb(100,100,100);
 }
+#panel2 {
+    position: relative;
+    background-color: black;
+    content: "";
+    width: 80%;
+    height: 30%;
+    margin-top: 60%;
+    z-index: 3;
+    box-shadow: 2.5px 2.5px 7px 0 rgb(100,100,100);
+}
 #player #panel #controlbtns {
     display: flex;
     
     margin-left: 10%;
     margin-top: 6%;
 };
+#player2 #panel2 #controlbtns2 {
+    display: flex;
+    
+    margin-left: 10%;
+    margin-top: 6%;
+};
+
 
 #panel #nowplaying {
     background-color: white;
     width: 50%;
+    height: 46px;
+    z-index: 4;
+    margin-top: -1%;
+    padding-top: 0;
+}
+
+#panel2 #nowplaying2 {
+    background-color: white;
+    width: 100%;
     height: 46px;
     z-index: 4;
     margin-top: -1%;
@@ -57,6 +83,14 @@ body {
     padding: 2%;
     background-color: white;
     font-family: 'Ubuntu', sans-serif;
+    height: 45px;
+}
+#playing2 {
+    margin-top: 0;
+    padding: 1%;
+    background-color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 10px;
     height: 45px;
 }
 
@@ -123,8 +157,9 @@ ul {
 }
 .songs:hover {
     background-color: rgb(200, 200, 200);
-    box-shadow: 0 3px 4px 0 rgb(100, 100, 100);
+    box-shadow: 0 3px 4px 0 rgb(200, 200, 200);
     cursor: pointer;
+    transition: 0.17s ease-out;
 }
 #alert {
     position: absolute;
@@ -170,8 +205,56 @@ ul {
     padding-left: 9px;
     
 }
+#panel2 {
+    display: none;
+}
 #add {
     border-radius: 0;
 }
+#panel2 #controlbtns2 {
+    margin: 5% auto;
+    margin-left: 27%;
+    width: 70%;
+}
+.but2 {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: black;
+    margin-right: 1%;
+}
+.ic2 {
+    font-size: 30px;
+    color: white;
+}
+#nowplaying2 #playing2 { 
+    height: 30px;
+    width: 100vw;
+    font-size: 12px;
+}
+
+::-webkit-file-upload-button {
+    font-size: 11px;
+}
+#panel2 {
+    position: fixed;
+    top: 35%;
+    z-index: 5;
+    height: 30vh;
+    width: 100%;
+}
 
 
+@media (max-width: 760px) {
+    #player {
+        display: none;
+
+    }
+    #panel2 {
+        display: block;
+    }
+    #list{
+        width: 100%;
+    }
+
+}

@@ -17,10 +17,15 @@ function closing() {
 function iconCheck() {
     if(audio.paused) {
         $('#play').html(`<i class="far ic fa-play-circle"></i>`);
+        $('#play2').html(`<i class="far ic2 fa-play-circle"></i>`);
     }else{
         $('#play').html(`<i class="far ic fa-pause-circle"></i>`);
+        $('#play2').html(`<i class="far ic2 fa-pause-circle"></i>`);
     }
 
 }
 
 $('#playing').html(musicArr[0].substring(musicArr[0].lastIndexOf('/')+1))
+$('#playing2').html(musicArr[0].substring(musicArr[0].lastIndexOf('/')+1))
+
+
