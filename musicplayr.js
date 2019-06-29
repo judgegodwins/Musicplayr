@@ -62,7 +62,6 @@ function previous() {
 function showP() {
 
     $('#playing').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
-    $('#playing2').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
 
 }
 
@@ -135,10 +134,10 @@ function addNew() {
                 musicArr.push(file);
                 s = cut(file);
                 $('ul').append(`<li class="songs">${s}</li>`);
+                
             } else {
-                alert(`${cut(file)} is already in playlist!`)
+                alert(`${cut(file)} is already in playlist!`);
             }
-
             
         }
         addListener();

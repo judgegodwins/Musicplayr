@@ -122,6 +122,7 @@ body {
 }
 
 .but {
+    border: 1px solid;
     border-color: black;
     margin-left: 3%;
     height: 70px;
