@@ -8,12 +8,7 @@ var count = 0;
 
 var input = document.querySelector('#fileIn');
 
-var musicArr = [
-    'C:/Users/USER/Music/15. XXXTENTACION & Lil Pump - Arms Around You (feat. Maluma & Swae Lee) - (SongsLover.com).mp3',
-    'C:/Users/USER/Music/Dua Lipa - Favorite Problem (CDQ) - (SongsLover.com).mp3',
-    'C:/Users/USER/Music/Dynoro_and_Gigi_D_Agostino_-_In_My_Mind_.mp3'
-] //Array of audio file links
-
+var musicArr = [] //Array of audio file links
 
 function play() {
     if(audio) {
@@ -26,19 +21,21 @@ function play() {
         audio = new Audio(musicArr[count])
         audio.play();
     }
+    showP();
     iconCheck()
     console.clear();
 }
 
-function listing() {
+// function listing() {
 
-    for(let i = 0; i < musicArr.length; i++) {
-        let f = musicArr[i].substring(musicArr[i].lastIndexOf('/')+1);
+//     for(let i = 0; i < musicArr.length; i++) {
+//         let f = musicArr[i].substring(musicArr[i].lastIndexOf('/')+1);
         
-        $('ul').append(`<li class="songs">${f}</li>`)
-    }
-}
-listing()
+//         $('ul').append(`<div class="sng"><li class="songs">${f}</li><p class="playnext">Play Next</p>
+//         </div>`)
+//     }
+// }
+// listing()
 
 function previous() {
     if(audio) {
@@ -51,7 +48,6 @@ function previous() {
         count -= 1;
     }
     
-    console.log(count)
     audio = new Audio(musicArr[count]);
     showP();
     audio.play();
@@ -98,9 +94,8 @@ function addListener() {
     for(let i = 0; i < li.length; i++) {
         li[i].addEventListener('click', () => {
             let f = 'C:/Users/USER/Music/' +  li[i].innerHTML;
-            console.log(f)
             let h = f.replace(/&amp;/gi, '&')
-            console.log(h)
+
             count = musicArr.indexOf(h)
             if(audio) {
                 audio.pause()
@@ -109,6 +104,39 @@ function addListener() {
             audio.play();
             iconCheck();
             showP();
+        })
+
+        li[i].addEventListener('auxclick', () => {
+            var playN = li[i].nextSibling;
+            playN.classList.toggle('show');
+            
+            $(playN).on('click', () => {
+                console.log('started')
+                let fc = 'C:/Users/USER/Music/' +  li[i].innerText;
+                console.log(fc)
+                let fmc = fc.substring(0, fc.lastIndexOf(3)+1);
+                console.log(musicArr.indexOf(fmc));
+                let auth = false;
+                var inte = setInterval(() => {
+                    if(audio.currentTime == audio.duration) {
+                        let counter = musicArr.indexOf(fmc);
+                        if(audio) {
+                            audio.pause();
+                        }
+                        clearInterval(interval)
+                        
+                        audio = new Audio(musicArr[counter]);
+                        $('#playing').html(musicArr[counter].substring(musicArr[counter].lastIndexOf('/')+1).replace(/%20/g, ' '));
+                        audio.play();
+
+                        clearInterval(inte);
+                        setInterval(playAuto, 1000);s
+                    }
+                })
+
+                
+
+            })
         })
     }
 }
@@ -128,12 +156,13 @@ function addNew() {
         
         for(let i = 0; i < input.files.length; i++) {
             file = 'C:/Users/USER/Music/'+ input.files[i]['name'];
-            console.log(musicArr.indexOf(file));
+
             if(musicArr.indexOf(file) < 0) {
 
                 musicArr.push(file);
                 s = cut(file);
-                $('ul').append(`<li class="songs">${s}</li>`);
+                $('ul').append(`<div class="sng"><li class="songs">${s}</li><p class="playnext">Play Next</p>
+                </div>`);
                 
             } else {
                 alert(`${cut(file)} is already in playlist!`);
@@ -149,22 +178,35 @@ function addNew() {
 
 
 function playAuto() {
-    if(audio.currentTime == audio.duration) {
-        if(count == musicArr.length-1) {
-            count = 0
-        }else{
-            count += 1
+    if(audio) {
+        if(audio.currentTime == audio.duration) {
+            if(count == musicArr.length-1) {
+                count = 0;
+            }else{
+                count += 1;
+            }
+            audio = new Audio(musicArr[count]);
+            audio.play();
+            showP()
         }
-        
-        audio = new Audio(musicArr[count]);
-        audio.play()
-        showP()
     }
 }
 
-//Keyboard Shortcuts
+$('.fwd').on('keydown', (e) => {
+    if(e.keyCode == 13) {
+        fastForward();
+    }
+})
+
+$('.bwd').on('keydown', (e) => {
+    if(e.keyCode == 13) {
+        fastBackward()
+    }
+})
+
+//Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-    
+
     switch(e.keyCode) {
         case 118:
             addNew();
@@ -214,4 +256,4 @@ document.addEventListener('keydown', (e) => {
     
 });
 
-setInterval(playAuto, 1000);
+var interval = setInterval(playAuto, 1000);

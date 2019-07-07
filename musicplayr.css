@@ -120,7 +120,32 @@ body {
     width: 200px;
     font-family: 'Ubuntu', sans-serif;
 }
+.sng {
+    transition: 0.3s ease-in-out;
+}
+.sng .playnext {
+    /* position: absolute; */
+    display: none;
+    z-index: 200000;
+    width: 30%;
+    background-color: white;
+    box-shadow: 0 4px 5px rgba(100, 100, 100, 0.8);
+    transition: display 0.3s ease-in;
+}
 
+.sng .show {
+    display: block;
+    position: relative;
+    transition: display 0.3s ease-out;
+    cursor: auto;
+}
+
+.sng .show:hover {
+    background-color: rgb(200, 200, 200);
+}
+.sng .queue:hover {
+    background-color: rgb(200, 200, 200);
+}
 .but {
     border: 1px solid;
     border-color: black;
@@ -253,6 +278,7 @@ ul {
     }
     #panel2 {
         display: block;
+        z-index: 1000000000;
     }
     #list{
         width: 100%;
