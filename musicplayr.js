@@ -10,6 +10,20 @@ var input = document.querySelector('#fileIn');
 
 var musicArr = [] //Array of audio file links
 
+var dir;
+
+
+function chooseDir() {
+     var directory = prompt('Choose folder to select songs from');
+     dir = directory;
+    if(!directory) {
+        console.log('No directory');
+        dir = 'C:/Users/USER/Music/';
+    }else console.log(dir);
+}
+
+chooseDir()
+
 function play() {
     if(audio) {
         if(audio.paused) {
@@ -112,7 +126,7 @@ function addListener() {
             
             $(playN).on('click', () => {
                 console.log('started')
-                let fc = 'C:/Users/USER/Music/' +  li[i].innerText;
+                let fc = dir +  li[i].innerText;
                 console.log(fc)
                 let fmc = fc.substring(0, fc.lastIndexOf(3)+1);
                 console.log(musicArr.indexOf(fmc));
@@ -130,7 +144,7 @@ function addListener() {
                         audio.play();
 
                         clearInterval(inte);
-                        setInterval(playAuto, 1000);s
+                        setInterval(playAuto, 1000);
                     }
                 })
 
@@ -155,7 +169,7 @@ function addNew() {
     if(input.files.length >= 1) {
         
         for(let i = 0; i < input.files.length; i++) {
-            file = 'C:/Users/USER/Music/'+ input.files[i]['name'];
+            file = dir + input.files[i]['name'];
 
             if(musicArr.indexOf(file) < 0) {
 

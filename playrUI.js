@@ -3,7 +3,9 @@
 function pop() {
     var aler = document.querySelector('#alert')
     $('#alert').css({'display': 'flex', 'width': '200px', 'height': '150px'})
-    
+    if(aler.style.display == 'flex') {
+        document.addEventListener('click', closing, true);
+    }
 }
 
 // function pop() {
@@ -25,7 +27,6 @@ function iconCheck() {
 
 }
 
-$('#playing').html(musicArr[0].substring(musicArr[0].lastIndexOf('/')+1))
-$('#playing2').html(musicArr[0].substring(musicArr[0].lastIndexOf('/')+1))
+
 
 
