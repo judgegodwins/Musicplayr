@@ -3,6 +3,25 @@ body {
     margin: 0;
 }
 
+.save-btn{
+    position: fixed;
+    z-index: 9;
+    padding: 1em 2em;
+    /* width: 6em; */
+    /* height: 3.75em; */
+    border-radius: 6em;
+    background-color: rgb(233, 193, 120);
+    top: 50%;
+    right: 0;
+    vertical-align: middle;
+    text-align: center;
+    transform: translate(0, -50%);
+    color: #eee;
+}
+.save-btn:active {
+    background-color: rgb(245, 168, 24)
+}
+
 #main {
     display: flex;
     flex-direction: row;
@@ -282,6 +301,16 @@ ul {
     }
     #list{
         width: 100%;
+    }
+    .songs:hover{
+        background-color: #fff;
+
+    }
+    .songs:active {
+        background-color: rgb(200, 200, 200);
+        box-shadow: 0 3px 4px 0 rgb(200, 200, 200);
+        cursor: pointer;
+        transition: 0.17s ease-out;
     }
 
 }

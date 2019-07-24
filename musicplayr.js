@@ -14,6 +14,7 @@ var dir;
 
 
 function chooseDir() {
+
      var directory = prompt('Choose folder to select songs from');
      dir = directory;
     if(!directory) {
@@ -40,16 +41,16 @@ function play() {
     console.clear();
 }
 
-// function listing() {
+function listing() {
 
-//     for(let i = 0; i < musicArr.length; i++) {
-//         let f = musicArr[i].substring(musicArr[i].lastIndexOf('/')+1);
+    for(let i = 0; i < musicArr.length; i++) {
+        let f = musicArr[i].substring(musicArr[i].lastIndexOf('/')+1);
         
-//         $('ul').append(`<div class="sng"><li class="songs">${f}</li><p class="playnext">Play Next</p>
-//         </div>`)
-//     }
-// }
-// listing()
+        $('ul').append(`<div class="sng"><li class="songs">${f}</li><p class="playnext">Play Next</p>
+        </div>`)
+    }
+}
+
 
 function previous() {
     if(audio) {
@@ -130,7 +131,7 @@ function addListener() {
                 console.log(fc)
                 let fmc = fc.substring(0, fc.lastIndexOf(3)+1);
                 console.log(musicArr.indexOf(fmc));
-                let auth = false;
+
                 var inte = setInterval(() => {
                     if(audio.currentTime == audio.duration) {
                         let counter = musicArr.indexOf(fmc);
@@ -271,3 +272,31 @@ document.addEventListener('keydown', (e) => {
 });
 
 var interval = setInterval(playAuto, 1000);
+
+
+var btn = document.querySelector(".save-btn");
+btn.addEventListener("click", function(){
+    if(localStorage.getItem("playlist") == null){
+        if(musicArr.length > 0){
+            localStorage.setItem("playlist", musicArr);
+        }
+
+    }
+});
+
+window.addEventListener("load", function(){
+    var opinion = confirm('Do you want to get your last saved songs?');
+    if(opinion) {
+        if(localStorage.getItem('playlist') == null) {
+            alert('Sorry, no saved songs')
+        }
+        musicArr = localStorage.getItem('playlist').split(',');
+        listing();
+        addListener();
+    }else{
+        localStorage.removeItem('playlist')
+        return null;
+
+    }
+
+});
