@@ -27,6 +27,8 @@ function iconCheck() {
 
 }
 
-
-
+function toggler() {
+    var btn = document.getElementById('save-btn');
+    btn.classList.toggle('open-btn');
+}
 

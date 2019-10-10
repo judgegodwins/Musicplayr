@@ -1,5 +1,6 @@
 /***************************************************************************************************
  * Change the directory in the variable 'file' in addNew() to your target directory for audio files
+ * Created by Judge Godwins
  ***************************************************************************************************/
 
 var audio;
@@ -12,7 +13,8 @@ var musicArr = [] //Array of audio file links
 
 var dir;
 
-
+var currentQueued;
+var queuedArr = []
 function chooseDir() {
 
      var directory = prompt('Choose folder to select songs from');
@@ -25,20 +27,20 @@ function chooseDir() {
 
 chooseDir()
 
-function play() {
-    if(audio) {
-        if(audio.paused) {
-            audio.play();
-        }else{
-            audio.pause();
+function startPlay() {
+    if($('#playlist').html().trim() != '') {
+        if(audio) {
+            if(audio.paused) {
+                audio.play();
+            }else{
+                audio.pause();
+            }
+        } else  {
+            play(count);
         }
-    } else  {
-        audio = new Audio(musicArr[count])
-        audio.play();
+        iconCheck();
     }
-    showP();
-    iconCheck()
-    console.clear();
+
 }
 
 function listing() {
@@ -63,16 +65,16 @@ function previous() {
         count -= 1;
     }
     
-    audio = new Audio(musicArr[count]);
-    showP();
-    audio.play();
-    iconCheck();
-    showP();
+    play(count)
 }
 
-function showP() {
-
-    $('#playing').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
+function showP(counter, str) {
+    if(!counter && str) $('#playing').html(str.substring(str.lastIndexOf('/')+1).replace(/%20/g, ' '));
+    else if(!str && counter) {
+        $('#playing').html(musicArr[counter].substring(musicArr[counter].lastIndexOf('/')+1).replace(/%20/g, ' '));
+    } else {
+        $('#playing').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
+    }
 
 }
 
@@ -87,11 +89,7 @@ function next() {
         count += 1;
     }
     
-    audio = new Audio(musicArr[count])
-    audio.play();
-    
-    iconCheck();
-    showP()
+    play(count)
     
 }
 
@@ -103,55 +101,65 @@ function fastBackward() {
     audio.currentTime -= 2;
 }
 
+function eraseArray() {
+    musicArr = [];
+    var list = document.querySelector('#playlist');
+    let oldChild = document.querySelectorAll('.sng')
+    oldChild.forEach((child) => {
+        list.removeChild(child);
+    })
+}
+
+function play(countee) {
+    try {
+        if (audio) {
+            audio.pause();
+        }
+        audio = new Audio(musicArr[countee]);
+        audio.play();
+        showP(countee, null);
+        iconCheck();
+
+    } catch (err) {
+        console.log(err)
+        alert("Sorry the folder path is incorrect. Please change it.");
+        chooseDir();
+        eraseArray();
+    }
+}
+
+function playByString(str) {
+    audio = new Audio(str);
+    audio.play()
+    showP(null, str);
+}
+
 function addListener() {
     
     let li = document.querySelectorAll('li');
     for(let i = 0; i < li.length; i++) {
         li[i].addEventListener('click', () => {
-            let f = 'C:/Users/USER/Music/' +  li[i].innerHTML;
+            let f = dir +  li[i].innerHTML;
             let h = f.replace(/&amp;/gi, '&')
 
-            count = musicArr.indexOf(h)
-            if(audio) {
-                audio.pause()
-            }
-            audio = new Audio(musicArr[count])
-            audio.play();
-            iconCheck();
-            showP();
+            count = musicArr.indexOf(h);
+            play(count);
+
         })
 
         li[i].addEventListener('auxclick', () => {
             var playN = li[i].nextSibling;
             playN.classList.toggle('show');
-            
-            $(playN).on('click', () => {
-                console.log('started')
-                let fc = dir +  li[i].innerText;
-                console.log(fc)
-                let fmc = fc.substring(0, fc.lastIndexOf(3)+1);
-                console.log(musicArr.indexOf(fmc));
 
-                var inte = setInterval(() => {
-                    if(audio.currentTime == audio.duration) {
-                        let counter = musicArr.indexOf(fmc);
-                        if(audio) {
-                            audio.pause();
-                        }
-                        clearInterval(interval)
-                        
-                        audio = new Audio(musicArr[counter]);
-                        $('#playing').html(musicArr[counter].substring(musicArr[counter].lastIndexOf('/')+1).replace(/%20/g, ' '));
-                        audio.play();
-
-                        clearInterval(inte);
-                        setInterval(playAuto, 1000);
-                    }
-                })
-
-                
-
+            document.addEventListener('click', () => {
+                playN.classList.remove('show');
             })
+
+            $(playN).on('click', () => {
+                let fc = dir +  li[i].innerText;
+                queuedArr.push(fc);
+            })
+
         })
     }
 }
@@ -167,20 +175,25 @@ function cut(str) {
 function addNew() {
     var file, s;
     
-    if(input.files.length >= 1) {
+    if(input.files.length > 0) {
         
         for(let i = 0; i < input.files.length; i++) {
-            file = dir + input.files[i]['name'];
 
-            if(musicArr.indexOf(file) < 0) {
+            if(input.files[i].type == 'audio/mp3' || input.files[i].type == 'video/mp4' || input.files[i].type == 'audio/x-m4a') {
+                file = dir + input.files[i]['name'];
 
-                musicArr.push(file);
-                s = cut(file);
-                $('ul').append(`<div class="sng"><li class="songs">${s}</li><p class="playnext">Play Next</p>
-                </div>`);
-                
+                if(musicArr.indexOf(file) < 0) {
+
+                    musicArr.push(file);
+                    s = cut(file);
+                    $('ul').append(`<div class="sng"><li class="songs">${s}</li><p class="playnext">Play Next</p>
+                    </div>`);
+                    
+                } else {
+                    alert(`${cut(file)} is already in playlist!`);
+                }
             } else {
-                alert(`${cut(file)} is already in playlist!`);
+                alert(`${input.files[i].name} is not an audio or video file.`);
             }
             
         }
@@ -195,14 +208,16 @@ function addNew() {
 function playAuto() {
     if(audio) {
         if(audio.currentTime == audio.duration) {
-            if(count == musicArr.length-1) {
-                count = 0;
-            }else{
-                count += 1;
+            if(queuedArr[0]) {
+                playByString(queuedArr.shift());
+            } else {
+                if(count == musicArr.length-1) {
+                    count = 0;
+                }else{
+                    count += 1;
+                }
+                play(count);
             }
-            audio = new Audio(musicArr[count]);
-            audio.play();
-            showP()
         }
     }
 }
@@ -227,7 +242,7 @@ document.addEventListener('keydown', (e) => {
             addNew();
         break;
         case 113:
-            play();
+            startPlay();
         break;
         case 119:
             previous();
@@ -276,11 +291,8 @@ var interval = setInterval(playAuto, 1000);
 
 var btn = document.querySelector(".save-btn");
 btn.addEventListener("click", function(){
-    if(localStorage.getItem("playlist") == null){
-        if(musicArr.length > 0){
-            localStorage.setItem("playlist", musicArr);
-        }
-
+    if(musicArr.length > 0){
+        localStorage.setItem("playlist", musicArr);
     }
 });
 
@@ -289,14 +301,37 @@ window.addEventListener("load", function(){
     if(opinion) {
         if(localStorage.getItem('playlist') == null) {
             alert('Sorry, no saved songs')
+            return;
         }
-        musicArr = localStorage.getItem('playlist').split(',');
+        var playlistStr = delComma(localStorage.getItem('playlist'));
+        musicArr = playlistStr.split(',');
         listing();
         addListener();
     }else{
         localStorage.removeItem('playlist')
         return null;
-
     }
-
 });
+
+// function delComma(str) {
+//     var gs;
+//     for(let i = 0; i < str.length; i++) {
+//         var gs;
+//         if(str[i] == ',' ) {
+//             if(str[i+1] != 'C') {
+//                 console.log("This is it: " + str[i] + ' ' + str[i+2] + '%' + str.indexOf(str[i]));
+//                 gs = str.replace(str[i], '%');
+//             }
+//         }
+//     }
+//     return gs;
+// }
+
+// function find() {
+//     for(let i = 0; i < musicArr.length; i++) {
+//         if(musicArr[i][0] !== 'C') {
+//             console.log(musicArr[i]);
+//         }
+//     }
+// }
+

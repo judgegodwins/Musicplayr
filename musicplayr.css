@@ -3,25 +3,47 @@ body {
     margin: 0;
 }
 
-.save-btn{
+
+
+.close-btn {
+    right: -3% !important;
     position: fixed;
     z-index: 9;
     padding: 1em 2em;
-    /* width: 6em; */
+    /* width: 0.4em; */
     /* height: 3.75em; */
-    border-radius: 6em;
+    border-radius: 6em 0 0 6em;
     background-color: rgb(233, 193, 120);
     top: 50%;
-    right: 0;
+    vertical-align: middle;
+    transform: translate(0, -50%);
+    color: #eee;
+    transition: 0.3s ease-out;
+}
+
+.save-btn {
+    width: 1em;
+    height: 60px;
+    cursor: pointer;
+}
+
+.open-btn {
+    right: 0 !important;
+    position: fixed;
+    z-index: 9;
+    padding: 1em 2em;
+    /* width: 0.4em; */
+    /* height: 3.75em; */
+    border-radius: 6em 0 0 6em;
+    background-color: rgb(233, 193, 120);
+    top: 50%;
     vertical-align: middle;
     text-align: center;
     transform: translate(0, -50%);
     color: #eee;
-}
-.save-btn:active {
-    background-color: rgb(245, 168, 24)
-}
+    transition: 0.3s ease-out;
 
+}
 #main {
     display: flex;
     flex-direction: row;
@@ -159,7 +181,7 @@ body {
     cursor: auto;
 }
 
-.sng .show:hover {
+.sng .show:active {
     background-color: rgb(200, 200, 200);
 }
 .sng .queue:hover {
@@ -289,8 +311,16 @@ ul {
     width: 100%;
 }
 
+/* .sng::after {
+    width: 50px;
+    height: 50px;
 
-@media (max-width: 760px) {
+    position: absolute;
+    left: 100%;
+    content: '';
+    background: #0f0;
+} */
+@media (max-width: 1080px) {
     #player {
         display: none;
 
