@@ -1,5 +1,5 @@
 /***************************************************************************************************
- * Change the directory in the variable 'file' in addNew() to your target directory for audio files
+ * Change the directory in the variable 'dir' in the chooseDir function to your target directory for audio files
  * Created by Judge Godwins
  ***************************************************************************************************/
 
