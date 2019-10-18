@@ -126,12 +126,14 @@ function play(countee) {
         chooseDir();
         eraseArray();
     }
+   playAuto(countee)
 }
 
 function playByString(str) {
     audio = new Audio(str);
     audio.play()
     showP(null, str);
+    playAuto(count)
 }
 
 function addListener() {
@@ -147,7 +149,8 @@ function addListener() {
 
         })
 
-        li[i].addEventListener('auxclick', () => {
+        li[i].addEventListener('auxclick', (e) => {
+            e.preventDefault()
             var playN = li[i].nextSibling;
             playN.classList.toggle('show');
 
@@ -197,7 +200,9 @@ function addNew() {
             }
             
         }
+        audio = musicArr[0];
         addListener();
+        playAuto();
     }else{
         pop();
     }
@@ -205,20 +210,22 @@ function addNew() {
 }
 
 
-function playAuto() {
+function playAuto(counter) {
     if(audio) {
-        if(audio.currentTime == audio.duration) {
+        audio.addEventListener('ended', function() {
+
             if(queuedArr[0]) {
                 playByString(queuedArr.shift());
             } else {
-                if(count == musicArr.length-1) {
-                    count = 0;
+                if(counter == musicArr.length-1) {
+                    counter = 0;
+                    count = counter;
                 }else{
-                    count += 1;
+                    count = counter + 1;
                 }
                 play(count);
             }
-        }
+        })
     }
 }
 
@@ -286,13 +293,10 @@ document.addEventListener('keydown', (e) => {
     
 });
 
-var interval = setInterval(playAuto, 1000);
-
-
 var btn = document.querySelector(".save-btn");
 btn.addEventListener("click", function(){
     if(musicArr.length > 0){
-        localStorage.setItem("playlist", musicArr);
+        localStorage.setItem("playlist", musicArr.join('[---]'));
     }
 });
 
@@ -303,13 +307,10 @@ window.addEventListener("load", function(){
             alert('Sorry, no saved songs')
             return;
         }
-        var playlistStr = delComma(localStorage.getItem('playlist'));
-        musicArr = playlistStr.split(',');
+        var playlistStr = localStorage.getItem('playlist')
+        musicArr = playlistStr.split('[---]');
         listing();
         addListener();
-    }else{
-        localStorage.removeItem('playlist')
-        return null;
     }
 });
 
@@ -334,4 +335,3 @@ window.addEventListener("load", function(){
 //         }
 //     }
 // }
-
