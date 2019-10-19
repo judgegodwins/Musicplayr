@@ -200,7 +200,6 @@ function addNew() {
             }
             
         }
-        audio = musicArr[0];
         addListener();
         playAuto();
     }else{
