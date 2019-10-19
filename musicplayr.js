@@ -17,7 +17,7 @@ var currentQueued;
 var queuedArr = []
 function chooseDir() {
 
-     var directory = prompt('Choose folder to select songs from');
+     var directory = prompt('Choose a folder to select songs from');
      dir = directory;
     if(!directory) {
         console.log('No directory');
