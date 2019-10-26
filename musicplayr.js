@@ -69,11 +69,21 @@ function previous() {
 }
 
 function showP(counter, str) {
-    if(!counter && str) $('#playing').html(str.substring(str.lastIndexOf('/')+1).replace(/%20/g, ' '));
+    let strng
+    if(!counter && str){
+        strng = str.substring(str.lastIndexOf('/')+1).replace(/%20/g, ' ');
+        $('#playing').html(strng);
+        $('#playing2').html(strng);
+
+    }
     else if(!str && counter) {
-        $('#playing').html(musicArr[counter].substring(musicArr[counter].lastIndexOf('/')+1).replace(/%20/g, ' '));
+        strng = musicArr[counter].substring(musicArr[counter].lastIndexOf('/')+1).replace(/%20/g, ' ');
+        $('#playing').html(strng);
+        $('#playing2').html(strng);
     } else {
-        $('#playing').html(musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' '));
+        strng = musicArr[count].substring(musicArr[count].lastIndexOf('/')+1).replace(/%20/g, ' ');
+        $('#playing').html(strng);
+        $('#playing2').html(strng);
     }
 
 }

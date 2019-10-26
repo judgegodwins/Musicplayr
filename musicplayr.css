@@ -4,9 +4,7 @@ body {
 }
 
 
-
 .close-btn {
-    right: -3% !important;
     position: fixed;
     z-index: 9;
     padding: 1em 2em;
@@ -14,21 +12,29 @@ body {
     /* height: 3.75em; */
     border-radius: 6em 0 0 6em;
     background-color: rgb(233, 193, 120);
-    top: 50%;
+    top: -5.5%;
     vertical-align: middle;
     transform: translate(0, -50%);
     color: #eee;
+    transform: rotate(-90deg);
     transition: 0.3s ease-out;
 }
 
+#save-btn {
+    position: absolute;
+    right: 52%;
+}
 .save-btn {
     width: 1em;
     height: 60px;
     cursor: pointer;
+   
+}
+.save-icon {
+    transform: rotate(90deg) scale(1.4);
 }
 
 .open-btn {
-    right: 0 !important;
     position: fixed;
     z-index: 9;
     padding: 1em 2em;
@@ -37,12 +43,12 @@ body {
     border-radius: 6em 0 0 6em;
     background-color: rgb(233, 193, 120);
     top: 50%;
+    top: 0;
     vertical-align: middle;
     text-align: center;
-    transform: translate(0, -50%);
+    /* transform: translate(0, -50%); */
     color: #eee;
     transition: 0.3s ease-out;
-
 }
 #main {
     display: flex;
@@ -115,8 +121,7 @@ body {
     width: 100%;
     height: 46px;
     z-index: 4;
-    margin-top: -1%;
-    padding-top: 0;
+    padding: 4px;
 }
 
 #playing {
@@ -128,11 +133,10 @@ body {
 }
 #playing2 {
     margin-top: 0;
-    padding: 1%;
+    padding: 7px;
     background-color: white;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 10px;
-    height: 45px;
+    text-align: center;
 }
 
 /* #playlist {
@@ -279,9 +283,14 @@ ul {
     border-radius: 0;
 }
 #panel2 #controlbtns2 {
-    margin: 5% auto;
-    margin-left: 27%;
+    margin: 0;
+    display: flex;
     width: 70%;
+    height: 85px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding: 0;
 }
 .but2 {
     width: 40px;
@@ -297,7 +306,7 @@ ul {
 #nowplaying2 #playing2 { 
     height: 30px;
     width: 100vw;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 ::-webkit-file-upload-button {
@@ -305,9 +314,9 @@ ul {
 }
 #panel2 {
     position: fixed;
-    top: 35%;
+    bottom: 0;
     z-index: 5;
-    height: 30vh;
+    height: 23%;
     width: 100%;
 }
 
@@ -326,8 +335,11 @@ ul {
 
     }
     #panel2 {
-        display: block;
+        display: flex;
         z-index: 1000000000;
+        flex-direction: column;
+        padding: 0;
+        
     }
     #list{
         width: 100%;
@@ -342,5 +354,7 @@ ul {
         cursor: pointer;
         transition: 0.17s ease-out;
     }
-
+    #save-btn {
+        right: 0;
+    }
 }
