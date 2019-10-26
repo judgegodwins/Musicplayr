@@ -31,4 +31,7 @@ function toggler() {
     var btn = document.getElementById('save-btn');
     btn.classList.toggle('open-btn');
 }
-
+function popup() {
+    var popup = document.getElementById('aSec2');
+    popup.classList.toggle('show')
+}

@@ -162,8 +162,23 @@ function addListener() {
         li[i].addEventListener('auxclick', (e) => {
             e.preventDefault()
             var playN = li[i].nextSibling;
-            playN.classList.toggle('show');
+            // function killShow() {
+            //     document.
+            // }
+            function killShow() {
+                var playNs = document.querySelectorAll('.playnext');
 
+                playNs.forEach((x) => {
+                    if(x !== playN) {
+                        x.classList.remove('show')
+                    }
+                })
+                playN.classList.toggle('show');
+                setTimeout(function() {
+                    playN.classList.remove('show');
+                }, 10000);
+            }
+            killShow();
             document.addEventListener('click', () => {
                 playN.classList.remove('show');
             })
@@ -200,6 +215,7 @@ function addNew() {
                     musicArr.push(file);
                     s = cut(file);
                     $('ul').append(`<div class="sng"><li class="songs">${s}</li><p class="playnext">Play Next</p>
+                    <div class="options"><p class="opt-btn">...</p></div>
                     </div>`);
                     
                 } else {
@@ -242,6 +258,10 @@ $('.fwd').on('keydown', (e) => {
     if(e.keyCode == 13) {
         fastForward();
     }
+})
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
 })
 
 $('.bwd').on('keydown', (e) => {

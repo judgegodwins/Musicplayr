@@ -18,6 +18,7 @@ body {
     color: #eee;
     transform: rotate(-90deg);
     transition: 0.3s ease-out;
+    cursor: pointer;
 }
 
 #save-btn {
@@ -121,7 +122,6 @@ body {
     width: 100%;
     height: 46px;
     z-index: 4;
-    padding: 4px;
 }
 
 #playing {
@@ -166,31 +166,56 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 .sng {
+    position: relative;
+    /* display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 95% 5%; */
     transition: 0.3s ease-in-out;
+    width: 100%;
 }
 .sng .playnext {
-    /* position: absolute; */
-    display: none;
-    z-index: 200000;
-    width: 30%;
+    position: absolute;
+    visibility: hidden;
+    z-index: 12;
+    bottom: 50%;
+    /* top: 30%; */
+    /* left: 80%; */
+    right: 0;
+    transform: translateX(-50%);
+    width: 200px;
+    cursor: pointer;
+    height: 30px;
+    width: 15%;
+    padding: 6px;
     background-color: white;
     box-shadow: 0 4px 5px rgba(100, 100, 100, 0.8);
-    transition: display 0.3s ease-in;
+    /* transition: 0.3s ease-in; */
+    animation: fade-out 0.18s;
 }
-
 .sng .show {
-    display: block;
-    position: relative;
-    transition: display 0.3s ease-out;
-    cursor: auto;
+    visibility: visible;
+    animation: fade-In 0.18s;
 }
 
+@keyframes fade-In {
+    from { opacity: 0 }
+    to { opacity: 1; }
+}
+@keyframes fade-out {
+    from{ opacity: 1; }
+    to { opacity: 0; }
+}
 .sng .show:active {
     background-color: rgb(200, 200, 200);
 }
 .sng .queue:hover {
     background-color: rgb(200, 200, 200);
 }
+/* .sng .options {
+    width: 5%;
+    height: 100%;
+    background-color: #fff;
+} */
 .but {
     border: 1px solid;
     border-color: black;
@@ -208,7 +233,7 @@ body {
 
 #listing {
     padding: 0;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 ul {
@@ -224,7 +249,7 @@ ul {
     padding-left: 2%;
     list-style-type: none;
     font-family: 'Ubuntu', sans-serif;
-
+    width: 100%;
 }
 .songs:hover {
     background-color: rgb(200, 200, 200);
@@ -343,6 +368,7 @@ ul {
     }
     #list{
         width: 100%;
+        height: 77%;
     }
     .songs:hover{
         background-color: #fff;
@@ -356,5 +382,49 @@ ul {
     }
     #save-btn {
         right: 0;
+    }
+    .popup .aSec2 {
+        visibility: hidden;
+        position: absolute;
+        z-index: 12;
+        bottom: 125%;
+        transform: translateX(-50%);
+        background-color: black;
+        width: 200px;
+        height: 70px;
+        box-shadow: 0 3px 4px 0 rgb(100,100,100);
+    }
+    .popup .aSec2::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+    }
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fade-in 1s;
+        animation: fade-in 1s;
+    }
+    @-webkit-keyframes fade-in {
+        from{ opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes fade-in {
+        from{ opacity: 0; }
+        to{ opacity: 1; }
+    }
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 }
